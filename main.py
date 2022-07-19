@@ -1,35 +1,8 @@
-from inv_cipher import inv_cipher
-from helper import hex_print_list
-from key_expansion import key_expansion
-from cipher import cipher
+from aes import AES
 
-def split_string_to_int(str):
-    lst = []
-    for i in range(0, len(str), 2):
-        lst.append(int(str[i : i + 2], 16))
-    return lst
-
-
-def combine_int_list_to_string(lst):
-    str = ''
-    for int in lst:
-        if int == 0:
-            str += '00'
-        str += format(int, 'x')
-    return str
-
-
-out = [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
-plaintext = '00112233445566778899aabbccddeeff'
-key = '000102030405060708090a0b0c0d0e0f'
-state = split_string_to_int(plaintext)
-key = split_string_to_int(key)
-w = key_expansion(key)
-cipher(state, out, w)
-new_state = out
-result = combine_int_list_to_string(out)
-print(result)
-out = [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
-inv_cipher(new_state, out, w)
-result = combine_int_list_to_string(out)
-print(result)
+aes = AES()
+input = [0x32, 0x43, 0xf6, 0xa8, 0x88, 0x5a, 0x30, 0x8d, 0x31, 0x31, 0x98, 0xa2, 0xe0, 0x37, 0x07, 0x34]
+key = [0x2b, 0x7e, 0x15, 0x16, 0x28, 0xae, 0xd2, 0xa6, 0xab, 0xf7, 0x15, 0x88, 0x09, 0xcf, 0x4f, 0x3c]
+ciphertext = aes.encrypt(input, key)
+plaintext = aes.decrypt(ciphertext, key)
+print(input == plaintext)
