@@ -32,7 +32,7 @@ class AES:
         return np.resize(input, input.size-pad_len)
 
 
-    # input: hex_list, output: hex_list    
+    # input: int_arr, output: int_arr 
     def encrypt(self, input, key):
         out = np.zeros((16,), dtype=int)
         w = key_expansion(key)
@@ -40,7 +40,7 @@ class AES:
         return out
         
     
-    # input: hex_list, output: hex_list   
+    # input: int_arr, output: int_arr 
     def decrypt(self, input, key):
         out = np.zeros((16,), dtype=int)
         w = key_expansion(key)
