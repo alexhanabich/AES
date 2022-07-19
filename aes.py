@@ -1,4 +1,3 @@
-from tarfile import BLOCKSIZE
 import numpy as np
 from cipher import cipher
 from inv_cipher import inv_cipher

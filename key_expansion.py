@@ -11,6 +11,7 @@ def sub_word(word):
 
 # rotate the first byte to the last
 def rot_word(word):
+    print(type(word))
     b0 = (word>>24) & 0xFF
     b1 = (word>>16) & 0xFF
     b2 = (word>>8) & 0xFF
@@ -22,7 +23,7 @@ def key_expansion(key):
     nb = 4
     nk = key.size // 4
     nr = nk + 6
-    w = np.zeros((nb*(nr+1),), dtype=np.uint)
+    w = np.zeros((nb*(nr+1),), dtype=np.ulonglong)
     for i in range(nk):
         w[i] = key[4*i]<<24 | key[4*i+1]<<16 | key[4*i+2]<<8 | key[4*i+3]
     for i in range(nk,(nb*(nr+1))):
