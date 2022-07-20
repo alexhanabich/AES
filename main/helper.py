@@ -126,6 +126,6 @@ def get_round_key(w, start, end):
     return to_matrix(res)
 
 
-
-
-
+def flatten(matrix):
+    matrix = np.transpose(matrix)
+    return matrix.flatten()

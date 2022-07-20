@@ -1,5 +1,5 @@
-from helper import get_sbox, rcon
 import numpy as np
+from helper import get_sbox, rcon
 
 # substitue bytes using sbox
 def sub_word(word):

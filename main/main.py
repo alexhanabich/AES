@@ -1,8 +1,9 @@
 import numpy as np
+from key_expansion import key_expansion
 from cipher import cipher
 from inv_cipher import inv_cipher
-from helper import hex_print
-from key_expansion import key_expansion
+from converter import file_to_ints, ints_to_file, str_to_ints
+
 
 
 def split_arr(a, size):
@@ -66,6 +67,17 @@ class AES:
             plain.append(p_i)
         u_plain = np.concatenate(plain)
         return self.unpad(u_plain)
+
+
+    # take hex string as key input
+    def ecb_encrypt_file(self, in_file, out_file, key):
+        ints = file_to_ints(in_file)
+        out_file = out_file
+        key = str_to_ints(key)
+        aes = AES()
+        ciphertext = aes.ecb_encrypt(ints, key)
+        ints_to_file(ciphertext, out_file)
+
 
     def cbc_encrypt(self, input, key):
         pass

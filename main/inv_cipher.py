@@ -1,5 +1,5 @@
 import numpy as np
-from helper import ff_mult, get_inv_sbox, to_matrix, get_round_key, add_round_key
+from helper import get_inv_sbox, ff_mult, to_matrix, get_round_key, add_round_key, flatten
 
 # substitute bytes with inv_sbox
 def inv_sub_bytes(state):
@@ -38,4 +38,4 @@ def inv_cipher(state, output, w):
     inv_shift_rows(state)
     inv_sub_bytes(state)
     add_round_key(state,  get_round_key(w, 0, nb - 1))
-    output[:] = np.transpose(state).flatten()
+    output[:] = flatten(state)
