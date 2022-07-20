@@ -14,7 +14,7 @@ BLOCK_SIZE = 16
 
 class AES:
 
-    def pad(self, input):
+    def __pad(self, input):
         r = input.size%BLOCK_SIZE
         padding = [0x80]
         for i in range(BLOCK_SIZE-1-r):
@@ -22,7 +22,7 @@ class AES:
         return np.append(input, padding)
 
 
-    def unpad(self, input):
+    def __unpad(self, input):
         pad_len = 0
         for i in range(len(input)-1, -1, -1):
             if input[i] == 0x00:
@@ -50,7 +50,7 @@ class AES:
 
     
     def ecb_encrypt(self, input, key):
-        input = self.pad(input)
+        input = self.__pad(input)
         cipher = []
         plain = split_arr(input, BLOCK_SIZE)
         for p_i in plain:
@@ -66,7 +66,7 @@ class AES:
             p_i = self.decrypt(c_i, key)
             plain.append(p_i)
         u_plain = np.concatenate(plain)
-        return self.unpad(u_plain)
+        return self.__unpad(u_plain)
 
 
     # take hex string as key input
@@ -78,6 +78,14 @@ class AES:
         ciphertext = aes.ecb_encrypt(ints, key)
         ints_to_file(ciphertext, out_file)
 
+
+    def ecb_decrypt_file(self, in_file, out_file, key):
+        ints = file_to_ints(in_file)
+        out_file = out_file
+        key = str_to_ints(key)
+        aes = AES()
+        ciphertext = aes.ecb_decrypt(ints, key)
+        ints_to_file(ciphertext, out_file)
 
     def cbc_encrypt(self, input, key):
         pass
