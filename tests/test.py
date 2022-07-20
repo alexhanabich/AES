@@ -1,11 +1,11 @@
 import os
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 
-from main.cipher import mix_columns, shift_rows, sub_bytes, cipher
-from main.key_expansion import key_expansion
-from main.converter import file_to_ints, ints_to_file, ints_to_str, str_to_ints
-from main.helper import hex_print, get_round_key, add_round_key, to_matrix, flatten
-from main.main import AES
+from src.cipher import mix_columns, shift_rows, sub_bytes, cipher
+from src.key_expansion import key_expansion
+from src.converter import file_to_ints, ints_to_file, ints_to_str, str_to_ints
+from src.helper import hex_print, get_round_key, add_round_key, to_matrix, flatten
+from src.main import AES
 import unittest
 import numpy as np
 import filecmp
