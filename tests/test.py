@@ -82,8 +82,7 @@ class TestCipher(unittest.TestCase):
         input = str_to_ints('3243f6a8885a308d313198a2e0370734')
         key = str_to_ints('2b7e151628aed2a6abf7158809cf4f3c')
         w = key_expansion(key)
-        out = np.zeros((16,), dtype=int)
-        cipher(input, out, w)
+        out = cipher(input, w)
         actual = ints_to_str(flatten(out), 2)
         expected = '3925841d02dc09fbdc118597196a0b32'
         self.assertEqual(actual, expected)

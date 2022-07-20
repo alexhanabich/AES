@@ -129,3 +129,7 @@ def get_round_key(w, start, end):
 def flatten(matrix):
     matrix = np.transpose(matrix)
     return matrix.flatten()
+
+
+def split_arr(a, size):
+    return np.split(a, np.arange(size,len(a),size))
