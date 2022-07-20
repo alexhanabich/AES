@@ -1,2 +1,11 @@
 # AES
-AES(128-bit) implementation in python following FIPS 197 (https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197.pdf)
+
+## Description
+
+Implementation of AES(128bit) from scratch following
+- FIPS 197 (https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197.pdf)
+
+Two modes of operation (ECB and CBC) were implemented following
+- NIST SP 800-38A (https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-38a.pdf)
+
+Similar variable names from the publications were used in the project.
