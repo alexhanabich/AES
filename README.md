@@ -2,7 +2,7 @@
 
 ## Description
 
-Implementation of AES(128bit) from scratch following
+Implementation of AES from scratch following
 - FIPS 197 (https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197.pdf)
 
 Two modes of operation (ECB and CBC) were implemented following
