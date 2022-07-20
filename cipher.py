@@ -1,5 +1,5 @@
 import numpy as np
-from src.helper import ff_mult, add_round_key, get_round_key, to_matrix, flatten, get_sbox
+from helper import ff_mult, add_round_key, get_round_key, to_matrix, flatten, get_sbox
 
 # substitute bytes with sbox
 def sub_bytes(state):
@@ -28,6 +28,8 @@ def mix_columns(state):
 def cipher(input, output, w):
     nb = 4
     nr = len(w)//4 - 1
+    # make a copy so that the input is preserved
+    input = np.copy(input)
     state = to_matrix(input)
     add_round_key(state, get_round_key(w, 0, nb-1))
     for i in range(1, nr):

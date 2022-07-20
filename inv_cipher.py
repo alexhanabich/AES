@@ -1,5 +1,5 @@
 import numpy as np
-from src.helper import get_inv_sbox, ff_mult, to_matrix, get_round_key, add_round_key, flatten
+from helper import get_inv_sbox, ff_mult, to_matrix, get_round_key, add_round_key, flatten
 
 # substitute bytes with inv_sbox
 def inv_sub_bytes(state):
@@ -25,10 +25,11 @@ def inv_mix_columns(state):
 
 
 # get round key from key schedule
-def inv_cipher(state, output, w):
+def inv_cipher(input, output, w):
     nb = 4
     nr = len(w)//4 - 1
-    state = to_matrix(state)
+    input = np.copy(input)
+    state = to_matrix(input)
     add_round_key(state,  get_round_key(w, nr*nb, (nr+1) * nb-1))
     for i in range(nr-1, 0, -1):
         inv_shift_rows(state)

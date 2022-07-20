@@ -1,11 +1,11 @@
 import os
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 
-from src.cipher import mix_columns, shift_rows, sub_bytes, cipher
-from src.key_expansion import key_expansion
-from src.converter import file_to_ints, ints_to_file, ints_to_str, str_to_ints
-from src.helper import hex_print, get_round_key, add_round_key, to_matrix, flatten
-from src.main import AES
+from cipher import mix_columns, shift_rows, sub_bytes, cipher
+from key_expansion import key_expansion
+from converter import file_to_ints, ints_to_file, ints_to_str, str_to_ints
+from helper import hex_print, get_round_key, add_round_key, to_matrix, flatten
+from main import AES
 import unittest
 import numpy as np
 import filecmp
@@ -132,18 +132,41 @@ class TestAES(unittest.TestCase):
                     '30c81c46a35ce411e5fbc1191a0a52ef' +
                     'f69f2445df4f9b17ad2b417be66c3710')
         self.assertEqual(actual, expected)
-    
 
-    def test_aes_ecb_image(self):
-        in_file = os.path.join(THIS_DIR, 'test.png')
-        ints = file_to_ints(in_file)
-        out_file = os.path.join(THIS_DIR, 'out.png')
+
+    def test_cbc_encrypt(self):
+        input = str_to_ints(('6bc1bee22e409f96e93d7e117393172a' +
+                            'ae2d8a571e03ac9c9eb76fac45af8e51' +
+                            '30c81c46a35ce411e5fbc1191a0a52ef' +
+                            'f69f2445df4f9b17ad2b417be66c3710'))
         key = str_to_ints('2b7e151628aed2a6abf7158809cf4f3c')
+        iv = str_to_ints('000102030405060708090a0b0c0d0e0f')
         aes = AES()
-        ciphertext = aes.ecb_encrypt(ints, key)
-        plaintext = aes.ecb_decrypt(ciphertext, key)
-        ints_to_file(plaintext, out_file)
-        self.assertTrue(filecmp.cmp(in_file, out_file))
+        cipher = aes.cbc_encrypt(input, key, iv)
+        actual = ints_to_str(cipher, 2)
+        expected = ('7649abac8119b246cee98e9b12e9197d' +
+                    '5086cb9b507219ee95db113a917678b2' +
+                    '73bed6b8e3c1743b7116e69e22229516' +
+                    '3ff1caa1681fac09120eca307586e1a7' +
+                    'f434f467253f9a5969153be0552dd6ca')
+        self.assertEqual(actual, expected)
+
+    def test_cbc_decrypt(self):
+        input = str_to_ints('7649abac8119b246cee98e9b12e9197d' +
+                            '5086cb9b507219ee95db113a917678b2' +
+                            '73bed6b8e3c1743b7116e69e22229516' +
+                            '3ff1caa1681fac09120eca307586e1a7' +
+                            'f434f467253f9a5969153be0552dd6ca')
+        key = str_to_ints('2b7e151628aed2a6abf7158809cf4f3c')
+        iv = str_to_ints('000102030405060708090a0b0c0d0e0f')
+        aes = AES()
+        plain = aes.cbc_decrypt(input, key, iv)
+        actual = ints_to_str(plain, 2)
+        expected = ('6bc1bee22e409f96e93d7e117393172a' +
+                    'ae2d8a571e03ac9c9eb76fac45af8e51' +
+                    '30c81c46a35ce411e5fbc1191a0a52ef' +
+                    'f69f2445df4f9b17ad2b417be66c3710')
+        self.assertEqual(actual, expected)
 
 
 class TestConverter(unittest.TestCase):
