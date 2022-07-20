@@ -1,5 +1,5 @@
 import numpy as np
-from helper import get_sbox, ff_mult, to_matrix, get_round_key, add_round_key, flatten
+from src.helper import ff_mult, add_round_key, get_round_key, to_matrix, flatten, get_sbox
 
 # substitute bytes with sbox
 def sub_bytes(state):

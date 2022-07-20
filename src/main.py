@@ -1,8 +1,8 @@
 import numpy as np
-from key_expansion import key_expansion
-from cipher import cipher
-from inv_cipher import inv_cipher
-from converter import file_to_ints, ints_to_file, str_to_ints
+from src.key_expansion import key_expansion
+from src.cipher import cipher
+from src.inv_cipher import inv_cipher
+from src.converter import file_to_ints, ints_to_file, str_to_ints
 
 
 

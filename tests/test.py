@@ -156,12 +156,20 @@ class TestConverter(unittest.TestCase):
 
 
     def test_aes_ecb_from_file(self):
+        # encrypt the file
         in_file = os.path.join(THIS_DIR, 'in.txt')
         out_file = os.path.join(THIS_DIR, 'out.txt')
         key = '2b7e151628aed2a6abf7158809cf4f3c'
         aes = AES()
         aes.ecb_encrypt_file(in_file, out_file, key)
-        self.assertTrue(filecmp.cmp(in_file, out_file))
+        
+        # decrypt the file
+        in_file2 = os.path.join(THIS_DIR, 'out.txt')
+        out_file2 = os.path.join(THIS_DIR, 'out2.txt')
+        key = '2b7e151628aed2a6abf7158809cf4f3c'
+        aes = AES()
+        aes.ecb_decrypt_file(in_file2, out_file2, key)
+        self.assertTrue(filecmp.cmp(in_file, out_file2))
 
 
 if __name__ == '__main__':
